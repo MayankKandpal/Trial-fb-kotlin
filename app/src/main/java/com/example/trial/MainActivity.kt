@@ -1,5 +1,6 @@
 package com.example.trial
 
+
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -22,14 +23,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+     FirebaseDatabase.getInstance().setPersistenceEnabled(true)
       //  val user = ArrayList<Custom>()
-        rcview.adapter = adapter
+       rcview.adapter = adapter
         fetchData()
         btn.setOnClickListener {
             uploadData()
         }
     }
+
 
     val adapter = GroupAdapter<GroupieViewHolder>()
 
@@ -67,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
 
-                    val fetchedData = p0.getValue(Custom::class.java)
+                val fetchedData = p0.getValue(Custom::class.java)
                 if (fetchedData!=null){
                     adapter.add(Data(fetchedData))
                 }

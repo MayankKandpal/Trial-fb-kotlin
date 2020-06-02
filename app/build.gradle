@@ -6,7 +6,9 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
-
+    androidExtensions {
+        experimental = true
+    }
     defaultConfig {
         applicationId "com.example.trial"
         minSdkVersion 21
@@ -38,5 +40,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation "com.xwray:groupie:2.8.0"
-
+    implementation "com.xwray:groupie-kotlin-android-extensions:2.8.0"
 }
