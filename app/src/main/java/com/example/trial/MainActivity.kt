@@ -16,6 +16,8 @@ import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_file.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
      FirebaseDatabase.getInstance().setPersistenceEnabled(true)
       //  val user = ArrayList<Custom>()
-       rcview.adapter = adapter
+        rcview.adapter = adapter
         fetchData()
         btn.setOnClickListener {
             uploadData()
@@ -38,11 +40,13 @@ class MainActivity : AppCompatActivity() {
     // val adapter2 = customAdapter(this, user)
 
     private fun uploadData(){
-
         val ref = FirebaseDatabase.getInstance().getReference("newnode").push()
         val name = etvar.text.toString()
         val name2 = etvar1.text.toString()
-        val custom = Custom(name,name2)
+        val id = ref.push().key.toString()
+        val SList = arrayListOf<String>()
+        SList.add(id)
+        val custom = Custom(name,name2,id)
         ref.setValue(custom)
             .addOnSuccessListener {
                 Toast.makeText(this,"Successfully Uploaded",Toast.LENGTH_SHORT).show()
@@ -51,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this,it.message.toString(),Toast.LENGTH_SHORT).show()
             }
     }
-
+    
     private fun fetchData(){
         val ref = FirebaseDatabase.getInstance().getReference("newnode")
         ref.addChildEventListener(object : ChildEventListener{
